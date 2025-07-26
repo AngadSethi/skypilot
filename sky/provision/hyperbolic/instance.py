@@ -98,7 +98,7 @@ def run_instances(region: str, cluster_name_on_cloud: str,
     # Check existing running instance
     logger.info('Checking for existing running instances')
     exist_instances = _filter_instances(
-        cluster_name_on_cloud, [utils.HyperbolicInstanceStatus.ONLINE.value])
+        cluster_name_on_cloud, [utils.HyperbolicInstanceStatus.RUNNING.value])
     logger.debug(
         f'Found {len(exist_instances)} running instances: {exist_instances}')
     instance_id = _get_head_instance_id(exist_instances)
@@ -162,9 +162,9 @@ def run_instances(region: str, cluster_name_on_cloud: str,
 
             # Wait for instance to be ready
             if not utils.wait_for_instance(
-                    instance_id, utils.HyperbolicInstanceStatus.ONLINE.value):
+                    instance_id, utils.HyperbolicInstanceStatus.RUNNING.value):
                 raise RuntimeError(
-                    f'Instance {instance_id} failed to reach ONLINE state')
+                    f'Instance {instance_id} failed to reach RUNNING state')
 
         except ValueError as e:
             logger.error(f'Failed to parse instance type: {e}')
@@ -182,7 +182,7 @@ def run_instances(region: str, cluster_name_on_cloud: str,
     while True:
         instances = _filter_instances(
             cluster_name_on_cloud,
-            [utils.HyperbolicInstanceStatus.ONLINE.value])
+            [utils.HyperbolicInstanceStatus.RUNNING.value])
         logger.debug(f'Current instances: {instances}')
         if len(instances) == 1:
             logger.info(f'Instance {instance_id} is ready')
@@ -257,7 +257,7 @@ def get_cluster_info(
     """Returns information about the cluster."""
     del region  # unused
     running_instances = _filter_instances(
-        cluster_name_on_cloud, [utils.HyperbolicInstanceStatus.ONLINE.value])
+        cluster_name_on_cloud, [utils.HyperbolicInstanceStatus.RUNNING.value])
     instances: Dict[str, List[common.InstanceInfo]] = {}
     head_instance_id = None
 
@@ -341,10 +341,10 @@ def wait_instances(region: str, cluster_name_on_cloud: str,
     """Wait for instances to reach the desired state."""
     del region  # unused
     if state == status_lib.ClusterStatus.UP:
-        # Check if any instances are in ONLINE state
+        # Check if any instances are in RUNNING state
         instances = _filter_instances(
             cluster_name_on_cloud,
-            [utils.HyperbolicInstanceStatus.ONLINE.value])
+            [utils.HyperbolicInstanceStatus.RUNNING.value])
         if not instances:
             # Check if any instances are in a failed state
             failed_instances = _filter_instances(cluster_name_on_cloud, [
@@ -383,10 +383,10 @@ def wait_instances(region: str, cluster_name_on_cloud: str,
                     f'{failed_instances}')
             raise RuntimeError(f'No terminated instances found for cluster '
                                f'{cluster_name_on_cloud}')
-        # Check if any instances are in ONLINE state
+        # Check if any instances are in RUNNING state
         running_instances = _filter_instances(
             cluster_name_on_cloud,
-            [utils.HyperbolicInstanceStatus.ONLINE.value])
+            [utils.HyperbolicInstanceStatus.RUNNING.value])
         if running_instances:
             error_msg = (
                 f'Cluster {cluster_name_on_cloud} is in STOPPED state, but '
