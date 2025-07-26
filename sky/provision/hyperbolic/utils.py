@@ -252,7 +252,7 @@ class HyperbolicClient:
 
                 logger.info(f'Successfully launched instance {instance_id}, '
                             f'waiting for it to be ready...')
-                target_status = HyperbolicInstanceStatus.ONLINE.value
+                target_status = HyperbolicInstanceStatus.RUNNING.value
                 if not self.wait_for_instance(instance_id, target_status):
                     raise HyperbolicError(
                         f'Instance {instance_id} failed to reach '
