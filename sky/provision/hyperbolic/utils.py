@@ -46,6 +46,7 @@ class HyperbolicError(Exception):
 class HyperbolicInstanceStatus(enum.Enum):
     """Statuses enum for Hyperbolic instances."""
     UNKNOWN = 'unknown'
+    ONLINE = 'online'
     OFFLINE = 'offline'
     STARTING = 'starting'
     STOPPING = 'stopping'
@@ -68,6 +69,7 @@ class HyperbolicInstanceStatus(enum.Enum):
             cls.CREATING: status_lib.ClusterStatus.INIT,
             cls.STARTING: status_lib.ClusterStatus.INIT,
             cls.PENDING: status_lib.ClusterStatus.INIT,  # Map PENDING to INIT
+            cls.ONLINE: status_lib.ClusterStatus.UP,
             cls.RUNNING: status_lib.ClusterStatus.UP,  # Map RUNNING to UP
             cls.FAILED: status_lib.ClusterStatus.INIT,
             cls.ERROR: status_lib.ClusterStatus.INIT,
@@ -92,6 +94,7 @@ class HyperbolicInstanceStatus(enum.Enum):
             'running': cls.RUNNING,
             'terminated': cls.TERMINATED,
             'unknown': cls.UNKNOWN,
+            'online': cls.ONLINE,
             'offline': cls.OFFLINE,
             'starting': cls.STARTING,
             'stopping': cls.STOPPING,
