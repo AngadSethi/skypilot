@@ -16,6 +16,7 @@ if typing.TYPE_CHECKING:
 
     # Renaming to avoid shadowing variables.
     from sky import resources as resources_lib
+    from sky.utils import volume as volume_lib
 else:
     requests = adaptors_common.LazyImport('requests')
 
@@ -166,7 +167,9 @@ class PrimeIntellect(clouds.Cloud):
             region: 'clouds.Region',
             zones: Optional[List['clouds.Zone']],
             num_nodes: int,
-            dryrun: bool = False) -> Dict[str, Optional[Union[str, bool]]]:
+            dryrun: bool = False,
+            volume_mounts: Optional[List['volume_lib.VolumeMount']] = None,
+    ) -> Dict[str, Optional[Union[str, bool]]]:
         del dryrun, cluster_name
         assert zones is not None, (region, zones)
 
