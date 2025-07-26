@@ -59,7 +59,7 @@ from sky.server import common as server_common
 all_clouds_in_smoke_tests = [
     'aws', 'gcp', 'azure', 'lambda', 'cloudflare', 'ibm', 'scp', 'oci', 'do',
     'kubernetes', 'vsphere', 'cudo', 'fluidstack', 'paperspace', 'runpod',
-    'vast', 'nebius', 'hyperbolic'
+    'vast', 'primeintellect', 'nebius', 'hyperbolic'
 ]
 default_clouds_to_run = ['aws', 'azure']
 
@@ -83,7 +83,7 @@ cloud_to_pytest_keyword = {
     'paperspace': 'paperspace',
     'do': 'do',
     'vast': 'vast',
-    'runpod': 'runpod',
+    'primeintellect': 'primeintellect',
     'nebius': 'nebius',
     'hyperbolic': 'hyperbolic'
 }

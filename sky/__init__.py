@@ -146,6 +146,7 @@ Vsphere = clouds.Vsphere
 Fluidstack = clouds.Fluidstack
 Nebius = clouds.Nebius
 Hyperbolic = clouds.Hyperbolic
+PrimeIntellect = clouds.PrimeIntellect
 
 __all__ = [
     '__version__',
@@ -159,6 +160,7 @@ __all__ = [
     'Lambda',
     'OCI',
     'Paperspace',
+    'PrimeIntellect',
     'RunPod',
     'Vast',
     'SCP',
